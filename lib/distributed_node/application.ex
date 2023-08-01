@@ -9,7 +9,7 @@ defmodule DistributedNode.Application do
   def start(_type, _args) do
     topologies = [
       example: [
-        strategy: Cluster.Strategy.Tags,
+        strategy: ClusterEC2.Strategy.Tags,
         config: [
           ec2_tagname: "Cluster"
         ]
