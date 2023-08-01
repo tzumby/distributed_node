@@ -11,8 +11,7 @@ defmodule DistributedNode.Application do
       example: [
         strategy: Cluster.Strategy.Tags,
         config: [
-          ec2_tagname: "Name",
-          ec2_tagvalue: "distributed_erlang:test"
+          ec2_tagname: "Cluster"
         ]
       ]
     ]
