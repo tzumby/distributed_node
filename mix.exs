@@ -13,6 +13,7 @@ defmodule DistributedNode.MixProject do
           include_executables_for: [:unix],
           include_erts: true,
           cookie: 'supers3cr3t',
+          steps: [:assemble, :tar],
           applications: [
             runtime_tools: :permanent
           ]
