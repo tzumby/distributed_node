@@ -33,8 +33,11 @@ defmodule DistributedNode.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:libcluster, "~> 3.3"},
-      {:libcluster_ec2, "~> 0.7.0"}
+      {:libcluster, path: "../libcluster"},
+      {:telemetry, "~> 1.2"},
+      {:amqp, "~> 3.3"},
+      {:partisan, git: "git@github.com:lasp-lang/partisan.git"},
+      {:partisan_ec2_tags_strategy, path: "../partisan_ec2_tags_strategy/"}
     ]
   end
 end

@@ -7,16 +7,31 @@ defmodule DistributedNode.Application do
 
   @impl true
   def start(_type, _args) do
+    attach_telemetry()
+
     topologies = [
-      example: [
-        strategy: ClusterEC2.Strategy.Tags,
+      partisan: [
+        strategy: PartisanEC2.Strategy.Tags,
+        connect: {:partisan_peer_service, :join, []},
+        disconnect: {:partisan_peer_service, :leave, []},
+        list_nodes: {:partisan, :nodes, []},
         config: [
-          ec2_tagname: "Cluster"
+          ip_type: :public
         ]
       ]
     ]
 
+    # topologies = [
+    #  example: [
+    #    strategy: ClusterEC2.Strategy.Tags,
+    #    config: [
+    #      ec2_tagname: "Cluster"
+    #    ]
+    #  ]
+    # ]
+
     children = [
+      DistributedNode.ExampleServer,
       {Cluster.Supervisor, [topologies, [name: MyApp.ClusterSupervisor]]}
     ]
 
@@ -24,5 +39,27 @@ defmodule DistributedNode.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: DistributedNode.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  def attach_telemetry do
+    :ok =
+      :telemetry.attach(
+        "log-response-handler",
+        [:web, :request, :done],
+        &LogResponseHandler.handle_event/4,
+        nil
+      )
+
+    :ok =
+      :telemetry.attach_many(
+        "log-response-handler-span",
+        [
+          [:worker, :processing, :start],
+          [:worker, :processing, :stop],
+          [:worker, :processing, :exception]
+        ],
+        &LogResponseHandler.handle_event/4,
+        nil
+      )
   end
 end
