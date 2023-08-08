@@ -13,5 +13,6 @@ config :distributed_node, DistributedNode.TelemetryPipeline,
 
 config :partisan, :membership_strategy, :partisan_scamp_v2_membership_strategy
 config :partisan, :peer_service_manager, :partisan_hyparview_peer_service_manager
+config :partisan, :peer_port, 31234
 
 import_config "#{config_env()}.exs"
