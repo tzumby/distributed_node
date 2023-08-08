@@ -36,7 +36,7 @@ defmodule DistributedNode.MixProject do
       {:libcluster, path: "../libcluster"},
       {:telemetry, "~> 1.2"},
       {:amqp, "~> 3.3"},
-      {:partisan, git: "git@github.com:lasp-lang/partisan.git"},
+      {:partisan, git: "https://github.com/lasp-lang/partisan.git"},
       {:partisan_ec2_tags_strategy, path: "../partisan_ec2_tags_strategy/"}
     ]
   end

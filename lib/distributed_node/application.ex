@@ -16,7 +16,7 @@ defmodule DistributedNode.Application do
         disconnect: {:partisan_peer_service, :leave, []},
         list_nodes: {:partisan, :nodes, []},
         config: [
-          ip_type: :public
+          ip_type: :private
         ]
       ]
     ]
