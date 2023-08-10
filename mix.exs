@@ -34,7 +34,9 @@ defmodule DistributedNode.MixProject do
   defp deps do
     [
       {:libcluster, "~> 3.3"},
-      {:libcluster_ec2, "~> 0.7.0"}
+      {:libcluster_ec2, "~> 0.7.0"},
+      {:appsignal, "~> 2.0"},
+      {:jason, "~> 1.1"}
     ]
   end
 end
