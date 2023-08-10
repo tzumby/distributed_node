@@ -25,7 +25,7 @@ defmodule DistributedNode.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:logger, :lasp_pg],
       mod: {DistributedNode.Application, []}
     ]
   end
@@ -36,8 +36,11 @@ defmodule DistributedNode.MixProject do
       {:libcluster, path: "../libcluster"},
       {:telemetry, "~> 1.2"},
       {:amqp, "~> 3.3"},
-      {:partisan, git: "https://github.com/lasp-lang/partisan.git"},
-      {:partisan_ec2_tags_strategy, path: "../partisan_ec2_tags_strategy/"}
+      {:partisan, git: "https://github.com/lasp-lang/partisan.git", override: true},
+      {:partisan_ec2_tags_strategy, path: "../partisan_ec2_tags_strategy/"},
+      {:lasp_pg, git: "https://github.com/lasp-lang/lasp_pg.git"},
+      {:appsignal, "~> 2.0"},
+      {:jason, "~> 1.1"}
     ]
   end
 end

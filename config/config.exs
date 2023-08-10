@@ -5,7 +5,7 @@ config :ex_aws,
   access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],
   secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, :instance_role]
 
-config :distributed_node, :debug, false
+#config :distributed_node, :debug, false
 
 config :distributed_node, DistributedNode.TelemetryPipeline,
   rabbitmq_url:
@@ -13,6 +13,10 @@ config :distributed_node, DistributedNode.TelemetryPipeline,
 
 config :partisan, :membership_strategy, :partisan_scamp_v2_membership_strategy
 config :partisan, :peer_service_manager, :partisan_hyparview_peer_service_manager
-config :partisan, :peer_port, 31234
+config :partisan, :peer_port, 41234
+config :partisan, :hyparview, random_promotion: false, shuffle_interval: 100000
+
+config :appsignal, :config,
+  otp_app: :distributed_node
 
 import_config "#{config_env()}.exs"

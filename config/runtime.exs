@@ -9,5 +9,4 @@ if config_env() == :prod do
       """
 
   config :partisan, :name, node_name |> String.to_atom()
-
 end

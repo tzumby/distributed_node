@@ -7,6 +7,7 @@ defmodule DistributedNode.Application do
 
   @impl true
   def start(_type, _args) do
+
     attach_telemetry()
 
     topologies = [
@@ -20,15 +21,6 @@ defmodule DistributedNode.Application do
         ]
       ]
     ]
-
-    # topologies = [
-    #  example: [
-    #    strategy: ClusterEC2.Strategy.Tags,
-    #    config: [
-    #      ec2_tagname: "Cluster"
-    #    ]
-    #  ]
-    # ]
 
     children = [
       DistributedNode.ExampleServer,
