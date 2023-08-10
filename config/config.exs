@@ -6,3 +6,5 @@ config :ex_aws,
   secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, :instance_role]
 
 config :distributed_node, :debug, false
+
+config :appsignal, :config, otp_app: :distributed_node
