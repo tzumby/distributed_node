@@ -7,6 +7,8 @@ defmodule DistributedNode.Application do
 
   @impl true
   def start(_type, _args) do
+    attach_telemetry()
+
     topologies = [
       example: [
         strategy: ClusterEC2.Strategy.Tags,
@@ -24,5 +26,19 @@ defmodule DistributedNode.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: DistributedNode.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  def attach_telemetry do
+    :ok =
+      :telemetry.attach_many(
+        "log-response-handler-span",
+        [
+          [:worker, :processing, :start],
+          [:worker, :processing, :stop],
+          [:worker, :processing, :exception]
+        ],
+        &LogResponseHandler.handle_event/4,
+        nil
+      )
   end
 end
