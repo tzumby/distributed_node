@@ -20,6 +20,7 @@ defmodule LogResponseHandler do
       number_of_nodes: Map.get(metadata, :number_of_nodes),
       connected_nodes: Map.get(metadata, :connected_nodes),
       sent_by: Map.get(metadata, :sent_by),
+      received_by: Map.get(metadata, :received_by),
       tags: metadata |> Map.delete(:telemetry_span_context),
       timestamp: NaiveDateTime.utc_now()
     }
@@ -38,8 +39,16 @@ defmodule LogResponseHandler do
   end
 
   def publish_telemetry_metric(payload) do
+    url = Application.get_env(:distributed_node, :rabbitmq_url)
 
-{:ok, conn} = AMQP.Connection.open("amqps://admin:87!KCDcMG9nL*pLD@b-69264c08-8410-49f7-81af-aeea3607b590.mq.us-east-2.amazonaws.com:5671", ssl_options: [verify: :verify_peer, cacertfile: "/etc/ssl/certs/ca-certificates.crt", server_name_indication: :disable])
+    {:ok, conn} =
+      AMQP.Connection.open(
+        url,
+        ssl_options: [
+          verify: :verify_none,
+          server_name_indication: :disable
+        ]
+      )
 
     {:ok, channel} = AMQP.Channel.open(conn)
 

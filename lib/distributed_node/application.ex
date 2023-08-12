@@ -19,8 +19,8 @@ defmodule DistributedNode.Application do
     ]
 
     children = [
-DistributedNode.ExampleServer,
-      {Cluster.Supervisor, [topologies, [name: MyApp.ClusterSupervisor]]}
+      DistributedNode.ExampleServer
+      # {Cluster.Supervisor, [topologies, [name: MyApp.ClusterSupervisor]]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -10,7 +10,7 @@ defmodule DistributedNode.ExampleServer do
   end
 
   def handle_cast({:remote_cast, sender}, state) do
-    send(sender, :hey_back)
+    send(sender, {:hey_back, Node.self()})
 
     {:noreply, state}
   end

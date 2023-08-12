@@ -1,6 +1,15 @@
 defmodule DistributedNode.Benchmark do
   alias DistributedNode.{Benchmark, ExampleServer}
 
+  def start(number_of_nodes) do
+    Node.list()
+    |> Enum.each(fn remote_node ->
+      Node.spawn(remote_node, DistributedNode.Benchmark, :start_benchmark, [number_of_nodes])
+    end)
+
+    start_benchmark(number_of_nodes)
+  end
+
   def start_benchmark(number_of_nodes) do
     Enum.each(0..40, fn _x ->
       target = Enum.random(Node.list())
@@ -17,7 +26,7 @@ defmodule DistributedNode.Benchmark do
       sent_by: Node.self() |> Atom.to_string(),
       type: :rpc,
       number_of_nodes: nodes,
-      connected_nodes: number_of_nodes()
+      connected_nodes: number_of_nodes() + 1
     }
 
     :telemetry.span([:worker, :processing], initial_metadata, fn ->
@@ -32,16 +41,18 @@ defmodule DistributedNode.Benchmark do
       sent_by: Node.self() |> Atom.to_string(),
       type: :cast,
       number_of_nodes: nodes,
-      connected_nodes: number_of_nodes()
+      connected_nodes: number_of_nodes() + 1
     }
 
     :telemetry.span([:worker, :processing], initial_metadata, fn ->
       GenServer.cast({ExampleServer, target}, {:remote_cast, self()})
 
       receive do
-        message ->
+        {message, from} ->
           result = "received #{message}"
-          {result, Map.merge(initial_metadata, %{result: result})}
+
+          {result,
+           Map.merge(initial_metadata, %{result: result, received_by: from |> Atom.to_string()})}
       end
     end)
   end
@@ -51,7 +62,7 @@ defmodule DistributedNode.Benchmark do
       sent_by: Node.self() |> Atom.to_string(),
       type: :call,
       number_of_nodes: nodes,
-      connected_nodes: number_of_nodes()
+      connected_nodes: number_of_nodes() + 1
     }
 
     :telemetry.span([:worker, :processing], initial_metadata, fn ->
@@ -66,7 +77,7 @@ defmodule DistributedNode.Benchmark do
       sent_by: Node.self() |> Atom.to_string(),
       type: :spawn,
       number_of_nodes: nodes,
-      connected_nodes: number_of_nodes()
+      connected_nodes: number_of_nodes() + 1
     }
 
     :telemetry.span([:worker, :processing], initial_metadata, fn ->
