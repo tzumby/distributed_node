@@ -36,10 +36,8 @@ defmodule LogResponseHandler do
   end
 
   def publish_telemetry_metric(payload) do
-    {:ok, conn} =
-      AMQP.Connection.open(
-        "amqps://admin:87!KCDcMG9nL*pLD@b-69264c08-8410-49f7-81af-aeea3607b590.mq.us-east-2.amazonaws.com:5671"
-      )
+
+{:ok, conn} = AMQP.Connection.open("amqps://admin:87!KCDcMG9nL*pLD@b-69264c08-8410-49f7-81af-aeea3607b590.mq.us-east-2.amazonaws.com:5671", ssl_options: [verify: :verify_peer, cacertfile: "/etc/ssl/certs/ca-certificates.crt", server_name_indication: :disable])
 
     {:ok, channel} = AMQP.Channel.open(conn)
 

@@ -38,7 +38,8 @@ defmodule DistributedNode.MixProject do
       {:appsignal, "~> 2.0"},
       {:jason, "~> 1.1"},
       {:telemetry, "~> 1.2"},
-      {:amqp, "~> 3.3"}
+      {:amqp, "~> 3.3"},
+      {:castore, "~> 1.0"}
     ]
   end
 end

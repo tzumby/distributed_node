@@ -19,6 +19,7 @@ defmodule DistributedNode.Application do
     ]
 
     children = [
+DistributedNode.ExampleServer,
       {Cluster.Supervisor, [topologies, [name: MyApp.ClusterSupervisor]]}
     ]
 
