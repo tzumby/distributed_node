@@ -17,7 +17,9 @@ defmodule LogResponseHandler do
       name: name,
       unit: "native",
       value: duration,
-      number_of_nodes: Map.get(metadata, :number_of_nodes) + 1,
+      number_of_nodes: Map.get(metadata, :number_of_nodes),
+      connected_nodes: Map.get(metadata, :connected_nodes),
+      sent_by: Map.get(metadata, :sent_by),
       tags: metadata |> Map.delete(:telemetry_span_context),
       timestamp: NaiveDateTime.utc_now()
     }
