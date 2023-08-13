@@ -45,8 +45,7 @@ defmodule LogResponseHandler do
       AMQP.Connection.open(
         url,
         ssl_options: [
-          verify: :verify_none,
-          server_name_indication: :disable
+          verify: :verify_none
         ]
       )
 
@@ -55,5 +54,7 @@ defmodule LogResponseHandler do
     exchange = "events"
 
     AMQP.Basic.publish(channel, exchange, "", :erlang.term_to_binary(payload))
+
+    AMQP.Connection.close(conn)		
   end
 end
