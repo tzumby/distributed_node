@@ -25,7 +25,7 @@ defmodule DistributedNode.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:logger, :phoenix_pubsub],
       mod: {DistributedNode.Application, []}
     ]
   end
@@ -39,7 +39,9 @@ defmodule DistributedNode.MixProject do
       {:jason, "~> 1.1"},
       {:telemetry, "~> 1.2"},
       {:amqp, "~> 3.3"},
-      {:castore, "~> 1.0"}
+      {:castore, "~> 1.0"},
+      {:phoenix_pubsub, "~> 2.1"},
+      {:uuid, "~> 1.1"}
     ]
   end
 end

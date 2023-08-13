@@ -20,6 +20,8 @@ defmodule DistributedNode.Application do
 
     children = [
       DistributedNode.ExampleServer,
+      {Phoenix.PubSub, name: DistributedNode.PubSub, adapter_name: Phoenix.PubSub.PG2},
+      DistributedNode.PubSubHandler,
       {Cluster.Supervisor, [topologies, [name: MyApp.ClusterSupervisor]]}
     ]
 
