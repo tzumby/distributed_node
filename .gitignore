@@ -24,3 +24,5 @@ distributed_node-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+log

@@ -41,7 +41,6 @@ defmodule DistributedNode.MixProject do
       {:phoenix_pubsub, "~> 2.1"},
       {:phoenix_pubsub_partisan, git: "https://github.com/tzumby/phoenix_pubsub_partisan.git"},
       {:lasp_pg, git: "https://github.com/lasp-lang/lasp_pg.git"},
-      {:appsignal, "~> 2.0"},
       {:jason, "~> 1.1"}
     ]
   end

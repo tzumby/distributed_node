@@ -11,6 +11,4 @@ config :partisan, :peer_service_manager, :partisan_hyparview_peer_service_manage
 config :partisan, :hyparview, random_promotion: false, shuffle_interval: 100_000
 # config :partisan, :peer_port, 31234
 
-config :appsignal, :config, otp_app: :distributed_node
-
 import_config "#{config_env()}.exs"

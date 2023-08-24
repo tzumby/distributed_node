@@ -24,8 +24,8 @@ defmodule DistributedNode.Application do
     children = [
       DistributedNode.ExampleServer,
       {Phoenix.PubSub, name: DistributedNode.PubSub, adapter: Phoenix.PubSub.Partisan},
-      DistributedNode.PartisanPubSubHandler
-      # {Cluster.Supervisor, [topologies, [name: MyApp.ClusterSupervisor]]}
+      DistributedNode.PartisanPubSubHandler,
+      {Cluster.Supervisor, [topologies, [name: MyApp.ClusterSupervisor]]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
