@@ -7,7 +7,6 @@ defmodule DistributedNode.Application do
 
   @impl true
   def start(_type, _args) do
-
     attach_telemetry()
 
     topologies = [
@@ -24,7 +23,9 @@ defmodule DistributedNode.Application do
 
     children = [
       DistributedNode.ExampleServer,
-      {Cluster.Supervisor, [topologies, [name: MyApp.ClusterSupervisor]]}
+      {Phoenix.PubSub, name: DistributedNode.PubSub, adapter: Phoenix.PubSub.Partisan},
+      DistributedNode.PartisanPubSubHandler
+      # {Cluster.Supervisor, [topologies, [name: MyApp.ClusterSupervisor]]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

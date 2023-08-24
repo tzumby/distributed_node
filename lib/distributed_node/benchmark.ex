@@ -1,6 +1,41 @@
 defmodule DistributedNode.Benchmark do
   alias DistributedNode.{Benchmark, ExampleServer}
 
+  def broadcast(number_of_nodes) do
+    url = Application.get_env(:distributed_node, :rabbitmq_url)
+
+    uuid = UUID.uuid4()
+
+    payload = %{
+      type: "pubsub_send",
+      id: uuid,
+      timestamp_sent: NaiveDateTime.utc_now(),
+      sent_by: Node.self() |> Atom.to_string(),
+      number_of_nodes: number_of_nodes,
+      connected_nodes: length(Node.list()) + 1
+    }
+
+    {:ok, conn} =
+      AMQP.Connection.open(
+        url,
+        ssl_options: [verify: :verify_none]
+      )
+
+    {:ok, channel} = AMQP.Channel.open(conn)
+
+    exchange = "events"
+
+    AMQP.Basic.publish(channel, exchange, "", :erlang.term_to_binary(payload))
+
+    Phoenix.PubSub.broadcast(
+      DistributedNode.PubSub,
+      "distributed_node:partisan_pubsub_test",
+      {:pubsub_broadcast, uuid}
+    )
+
+    AMQP.Connection.close(conn)
+  end
+
   def start_benchmark do
     Enum.each(0..40, fn _x ->
       target = Enum.random(Node.list())

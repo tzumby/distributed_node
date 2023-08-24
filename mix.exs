@@ -38,6 +38,8 @@ defmodule DistributedNode.MixProject do
       {:amqp, "~> 3.3"},
       {:partisan, git: "https://github.com/lasp-lang/partisan.git", override: true},
       {:partisan_ec2_tags_strategy, path: "../partisan_ec2_tags_strategy/"},
+      {:phoenix_pubsub, "~> 2.1"},
+      {:phoenix_pubsub_partisan, git: "https://github.com/tzumby/phoenix_pubsub_partisan.git"},
       {:lasp_pg, git: "https://github.com/lasp-lang/lasp_pg.git"},
       {:appsignal, "~> 2.0"},
       {:jason, "~> 1.1"}
