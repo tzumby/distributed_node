@@ -40,6 +40,7 @@ defmodule DistributedNode.MixProject do
       {:partisan_ec2_tags_strategy, path: "../partisan_ec2_tags_strategy/"},
       {:phoenix_pubsub, "~> 2.1"},
       {:phoenix_pubsub_partisan, git: "https://github.com/tzumby/phoenix_pubsub_partisan.git"},
+      {:logflare_logger_backend, "~> 0.11.4"},
       {:jason, "~> 1.1"}
     ]
   end

@@ -3,6 +3,8 @@ defmodule DistributedNode.PartisanPubSubHandler do
 
   alias Phoenix.PubSub
 
+  require Logger
+
   def start_link(_) do
     GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
   end
@@ -20,6 +22,16 @@ defmodule DistributedNode.PartisanPubSubHandler do
 
   def handle_info({:broadcast, {:pubsub_broadcast, uuid}}, state) do
     url = Application.get_env(:distributed_node, :rabbitmq_url)
+
+    {:ok, active} = :partisan_hyparview_peer_service_manager.active()
+    active = active |> Enum.map(fn {k, _v} -> k.name end)
+
+    {:ok, passive} = :partisan_hyparview_peer_service_manager.passive()
+    passive = passive |> Enum.map(fn {k, _v} -> k.name end)
+
+    Logger.info(
+      "patisan_node: #{inspect(:partisan.node())}. active: #{inspect(active)} passive: #{inspect(passive)}"
+    )
 
     payload = %{
       type: "pubsub_receive",
