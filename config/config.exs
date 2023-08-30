@@ -10,10 +10,10 @@ config :partisan, :peer_service_manager, :partisan_hyparview_peer_service_manage
 config :partisan, :peer_port, 41234
 
 config :partisan, :hyparview,
-  # active_max_size: 10,
-  # active_rwl: 10,
-  # passive_rwl: 5,
-  # active_min_size: 5,
+  active_max_size: 10,
+  active_rwl: 10,
+  passive_rwl: 5,
+  active_min_size: 5,
   random_promotion: false,
   shuffle_interval: 1000
 
