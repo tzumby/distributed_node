@@ -1,7 +1,14 @@
 import Config
 
-def to_boolean("true"), do: true
-def to_boolean("false"), do: false
+to_boolean = fn
+  true -> true
+  "true" -> true
+  "false" -> false
+  false -> false
+  1 -> true
+  "1" -> true
+  _else -> false
+end
 
 if config_env() == :prod do
   node_name =
