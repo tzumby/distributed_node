@@ -47,8 +47,8 @@ if config_env() == :prod do
     active_rwl: active_rwl |> String.to_integer(),
     passive_rwl: passive_rwl |> String.to_integer(),
     active_min_size: active_min_size |> String.to_integer(),
-    random_promotion: random_promotion |> to_boolean(),
-    shuffle_interval: shuffle_interval |> to_boolean()
+    random_promotion: random_promotion |> to_boolean.(),
+    shuffle_interval: shuffle_interval |> to_boolean.()
 
   config :partisan, :peer_port, String.to_integer(peer_port)
 
