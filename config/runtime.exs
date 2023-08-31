@@ -51,7 +51,4 @@ if config_env() == :prod do
     shuffle_interval: shuffle_interval |> to_boolean.()
 
   config :partisan, :peer_port, String.to_integer(peer_port)
-
-  config :partisan, :membership_strategy, String.to_atom(membership_strategy)
-  config :partisan, :peer_service_manager, String.to_atom(peer_service_manager)
 end
