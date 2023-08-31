@@ -32,14 +32,7 @@ if config_env() == :prod do
 
   peer_port = System.get_env("PEER_PORT") || "41234"
 
-  membership_strategy =
-    System.get_env("MEMBERSHIP_STRATEGY") || "partisan_scamp_v2_membership_strategy"
-
-  peer_service_manager =
-    System.get_env("PEER_SERVICE_MANAGER") || "partisan_hyparview_peer_service_manager"
-
   config :distributed_node, :rabbitmq_url, rabbitmq_url
-
   config :partisan, :name, node_name |> String.to_atom()
 
   config :partisan, :hyparview,
@@ -49,6 +42,4 @@ if config_env() == :prod do
     active_min_size: active_min_size |> String.to_integer(),
     random_promotion: random_promotion |> to_boolean.(),
     shuffle_interval: shuffle_interval |> to_boolean.()
-
-  config :partisan, :peer_port, String.to_integer(peer_port)
 end
