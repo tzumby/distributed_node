@@ -30,8 +30,6 @@ if config_env() == :prod do
   random_promotion = System.get_env("RANDOM_PROMOTION") || "false"
   shuffle_interval = System.get_env("SHUFFLE_INTERVAL") || "1000"
 
-  peer_port = System.get_env("PEER_PORT") || "41234"
-
   config :distributed_node, :rabbitmq_url, rabbitmq_url
   config :partisan, :name, node_name |> String.to_atom()
 
@@ -41,5 +39,5 @@ if config_env() == :prod do
     passive_rwl: passive_rwl |> String.to_integer(),
     active_min_size: active_min_size |> String.to_integer(),
     random_promotion: random_promotion |> to_boolean.(),
-    shuffle_interval: shuffle_interval |> to_boolean.()
+    shuffle_interval: shuffle_interval |> String.to_integer()
 end
