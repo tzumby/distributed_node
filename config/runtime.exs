@@ -40,6 +40,8 @@ if config_env() == :prod do
 
   pubsub_parallelism = System.get_env("PUBSUB_PARALLELISM") || "10"
 
+  passive_max_size = System.get_env("PASSIVE_MAX_SIZE") || "30"
+
   config :distributed_node, :rabbitmq_url, rabbitmq_url
 
   config :partisan, :name, node_name |> String.to_atom()
@@ -50,7 +52,8 @@ if config_env() == :prod do
     passive_rwl: passive_rwl |> String.to_integer(),
     active_min_size: active_min_size |> String.to_integer(),
     random_promotion: random_promotion |> to_boolean.(),
-    shuffle_interval: shuffle_interval |> String.to_integer()
+    shuffle_interval: shuffle_interval |> String.to_integer(),
+    passive_max_size: passive_max_size |> String.to_integer()
 
   config :partisan, :peer_port, String.to_integer(peer_port)
 
