@@ -38,6 +38,8 @@ if config_env() == :prod do
   peer_service_manager =
     System.get_env("PEER_SERVICE_MANAGER") || "partisan_hyparview_peer_service_manager"
 
+  pubsub_parallelism = System.get_env("PUBSUB_PARALLELISM") || "10"
+
   config :distributed_node, :rabbitmq_url, rabbitmq_url
 
   config :partisan, :name, node_name |> String.to_atom()
@@ -54,4 +56,8 @@ if config_env() == :prod do
 
   config :partisan, :peer_service_manager, String.to_atom(peer_service_manager)
   config :partisan, :membership_strategy, String.to_atom(membership_strategy)
+
+  config :partisan, :channels, [
+    {:pubsub, %{parallelism: pubsub_parallelism |> String.to_integer()}}
+  ]
 end
