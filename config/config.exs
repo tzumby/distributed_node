@@ -9,8 +9,4 @@ config :distributed_node, :debug, false
 
 config :appsignal, :config, otp_app: :distributed_node
 
-config :distributed_node,
-       :rabbitmq_url,
-       "amqps://admin:87!KCDcMG9nL*pLD@b-69264c08-8410-49f7-81af-aeea3607b590.mq.us-east-2.amazonaws.com:5671"
-
 import_config "#{config_env()}.exs"
