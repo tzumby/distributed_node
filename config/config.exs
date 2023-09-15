@@ -7,6 +7,4 @@ config :ex_aws,
 
 config :distributed_node, :debug, false
 
-config :appsignal, :config, otp_app: :distributed_node
-
 import_config "#{config_env()}.exs"

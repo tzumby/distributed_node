@@ -9,11 +9,14 @@ defmodule DistributedNode.Application do
   def start(_type, _args) do
     attach_telemetry()
 
+    start_distribution()
+
     topologies = [
       example: [
         strategy: ClusterEC2.Strategy.Tags,
         config: [
-          ec2_tagname: "Cluster"
+          ec2_tagname: "Cluster",
+          ip_type: :private_dns
         ]
       ]
     ]
@@ -29,6 +32,10 @@ defmodule DistributedNode.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: DistributedNode.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  def start_distribution do
+    :net_kernel.start(:app, %{name_domain: :longnames})
   end
 
   def attach_telemetry do
