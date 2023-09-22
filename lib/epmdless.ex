@@ -69,10 +69,6 @@ defmodule Epmdless_dist do
   def close(listen) do
     :inet_tcp_dist.close(listen)
   end
-
-  def childspecs do
-    :inet_tcp_dist.childspecs()
-  end
 end
 
 defmodule Epmdless_epmd_client do
