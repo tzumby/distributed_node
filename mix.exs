@@ -34,9 +34,7 @@ defmodule DistributedNode.MixProject do
   defp deps do
     [
       {:libcluster, "~> 3.3"},
-      {:libcluster_ec2,
-       git: "https://github.com/tzumby/libcluster_ec2.git",
-       branch: "swap-tesla-support-private-dns"},
+      {:libcluster_ec2, git: "https://github.com/tzumby/libcluster_ec2.git"},
       {:jason, "~> 1.1"},
       {:telemetry, "~> 1.2"},
       {:amqp, "~> 3.3"},
