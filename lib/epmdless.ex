@@ -20,7 +20,7 @@ defmodule Epmdless do
     # name.  If there is no such number, the offset is 0.
     #
     # Also handle the case when no hostname was specified.
-    node_name = Regex.replace(~r/@.*$/, name, "") |> IO.inspect(label: :name)
+    node_name = Regex.replace(~r/@.*$/, name, "")
 
     offset =
       case Regex.run(~r/[0-9]+$/, node_name) do
