@@ -12,12 +12,19 @@ defmodule DistributedNode.Application do
     start_distribution()
 
     topologies = [
-      example: [
+      gossip: [
+        strategy: Cluster.Strategy.Gossip,
+        config: [
+          port: 45892,
+          if_addr: "0.0.0.0",
+          multicast_addr: "255.255.255.255",
+          broadcast_only: true]],
+      ec2_tags: [
         strategy: ClusterEC2.Strategy.Tags,
         config: [
           ec2_tagname: "Cluster",
           ip_type: :private_dns,
-	  polling_interval: 60_000
+          polling_interval: 15_000
         ]
       ]
     ]

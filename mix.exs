@@ -33,8 +33,8 @@ defmodule DistributedNode.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:libcluster, "~> 3.3"},
-      {:libcluster_ec2, git: "https://github.com/tzumby/libcluster_ec2.git"},
+      {:libcluster, path: "../libcluster"},
+      {:libcluster_ec2, path: "../libcluster_ec2"},
       {:jason, "~> 1.1"},
       {:telemetry, "~> 1.2"},
       {:amqp, "~> 3.3"},
