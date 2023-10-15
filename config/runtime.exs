@@ -8,7 +8,7 @@ if config_env() == :prod do
       RABBITMQ_URL environment variable is not set.
       """
 
-  node_name = System.get_env("NODE_NAME") || "app"
+  node_name = System.get_env("RELEASE_NODE") || "app"
 
   config :distributed_node, :rabbitmq_url, rabbitmq_url
   config :distributed_node, :node_name, node_name

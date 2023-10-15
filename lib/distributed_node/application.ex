@@ -17,16 +17,8 @@ defmodule DistributedNode.Application do
         config: [
           port: 45892,
           if_addr: "0.0.0.0",
-          multicast_addr: "255.255.255.255",
-          broadcast_only: true]],
-      ec2_tags: [
-        strategy: ClusterEC2.Strategy.Tags,
-        config: [
-          ec2_tagname: "Cluster",
-          ip_type: :private_dns,
-          polling_interval: 15_000
-        ]
-      ]
+          multicast_addr: "224.0.0.10",
+	  secret: "somepassword"]]
     ]
 
     children = [
@@ -82,6 +74,6 @@ defmodule DistributedNode.Application do
   end
 
   def node_name do 
-    Application.get_env(:distributed_node, :node_name, "app") |> String.to_atom()  
+    Application.get_env(:distributed_node, :node_name, "app") |> String.trim() |> String.to_atom()  
   end 
 end
