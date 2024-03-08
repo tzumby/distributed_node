@@ -13,13 +13,16 @@
 
 -kernel net_setuptime 30
 -kernel net_ticktime 30
--kernel inet_dist_base_port 8001
 -kernel connect_all false 
 -kernel start_distribution false 
--start_epmd false 
--epmd_module Elixir.Epmdless_epmd_client 
--kernel start_distribution false 
--proto_dist Elixir.Epmdless
+
+-kernel inet_dist_listen_min 9100
+-kernel inet_dist_listen_max 10100
+
+#-kernel inet_dist_base_port 8001
+#-proto_dist Elixir.Epmdless
+#-start_epmd false 
+#-epmd_module Elixir.Epmdless_epmd_client 
 
 ## Increase number of concurrent ports/sockets
 ##+Q 65536
